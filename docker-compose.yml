@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  srs:
+    image: ossrs/srs:v4.0.39
+    volumes:
+    #this map log file to docker log
+     - ./objs/srs.log:/usr/local/srs/objs/srs.log
+     - ./objs/srs2.log:/usr/local/srs/objs/srs2.log
+     - ./conf/srs.conf:/usr/local/srs/conf/srs.conf
+    ports:
+      - "1935:1935"
+      - "1985:1985"
+      - "8080:8080"
+      - "8000:8000/udp"
+    environment:
+#this works
+      - CANDIDATE=192.168.1.204
+#doesnt work      - CANDIDATE=*
+#this doesn't work      - CANDIDATE=http://2dba7405a2cf.ngrok.io
